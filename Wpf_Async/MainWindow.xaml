@@ -1,0 +1,29 @@
+﻿<Window x:Class="Wpf_Async.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf_Async"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            
+            <StackPanel MaxWidth="100" HorizontalAlignment="Left" Margin="0 10">
+                <Button x:Name="b" Click="Button_Click" Content="Click" Padding="5"></Button>
+                <Button x:Name="b1" Click="Button_Click_1" Content="Click1" Padding="5"></Button>
+                <Button x:Name="b2" Click="Button_Click_2" Content="Click2" Padding="5"></Button>
+                <Button Click="ParallelClick" Content="ParallelClick" Padding="5"></Button>
+                <Button Click="Button_Click_3" Content="Reset" Padding="5"></Button>
+                <Button Click="CancelAllClick" Content="Cancel All" Padding="5"></Button>
+            </StackPanel>
+
+            <StackPanel MinWidth="100" HorizontalAlignment="Left" Margin="0 15">
+                <TextBlock x:Name="tb" Text="click" Padding="5"/>
+                <TextBlock x:Name="tb1" Text="click1" Padding="5"/>
+                <TextBlock x:Name="tb2"  Text="click2" Padding="5"/>
+            </StackPanel>
+            
+        </StackPanel>
+    </Grid>
+</Window>
