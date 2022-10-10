@@ -10,20 +10,38 @@ namespace Constructors_order
 
         }
     }
-
+    /// <summary>
+    /// 1. Static field BaseClass
+    /// 2. Static constructor BaseClass
+    /// 3. Static field inherited
+    /// 4. Static constructor inherited
+    /// 5. instance field inherited
+    /// 6. instance field BaseClass
+    /// 7. instance constructor BaseClass
+    /// 8. instance constructor inherited
+    /// </summary>
 
     class MyClass : MyBaseClass
     {
         private string Name = "Name";
         private static string  StatName = "StatName";
+        private string Description;
         public MyClass()
         {
             Name = "ConstrName";
+            Description = "Descir";
         }
         static MyClass()
         {
             StatName = "StaNameConstr";
         }
+
+        public override void ahoj()
+        {
+            Description.ToString();
+        }
+
+
     }
 
 
@@ -34,11 +52,16 @@ namespace Constructors_order
         public MyBaseClass()
         {
             BaseName = "BaseConstrName";
-
+            //ahoj(); // CRASH not init yet
         }
         static MyBaseClass()
         {
             BaseStatName = "BaseStaticConstrName";
+        }
+
+        public virtual void ahoj() //DO NOT CALL FROM CONSTRUCTOR
+        {
+
         }
     }
 
