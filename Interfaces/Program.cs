@@ -21,6 +21,11 @@ namespace Constructors_order
 
 class MyClass : A, B
 {
+    public void Another()
+    {
+        throw new NotImplementedException();
+    }
+
     public void Another2() // MUST BE IMPLEMENTED NO default implementation
     {
         throw new NotImplementedException();
@@ -36,19 +41,17 @@ class MyClass : A, B
     {
         Console.WriteLine("A but in class");
     }
-
-
 }
 
 interface A
 {
-    public void DoStuff() => Console.WriteLine("A");
+    public void DoStuff();
 }
 
 interface B
 {
-    public void DoStuff() => Console.WriteLine("Do Stuff B");
-    public void Another() => Console.WriteLine("Another B");
+    public void DoStuff();
+    public void Another();
     public void Another2();
 
 }

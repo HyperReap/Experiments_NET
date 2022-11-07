@@ -10,6 +10,14 @@ namespace Constructors_order
 
         }
     }
+    internal class Program2
+    {
+        static void Main(string[] args)
+        {
+            MyClass c = new MyClass();
+
+        }
+    }
     /// <summary>
     /// 1. Static field BaseClass
     /// 2. Static constructor BaseClass

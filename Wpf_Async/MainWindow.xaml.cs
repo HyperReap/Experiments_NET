@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,13 +21,13 @@ namespace Wpf_Async
             InitializeComponent();
         }
 
-        private async Task<bool> Delay(int seconds, int id, CancellationTokenSource cts)
+        private async Task<bool> Action(int seconds, int id, CancellationTokenSource cts)
         {
             sources.Add(cts);
 
             try
             {
-                await Task.Delay(TimeSpan.FromSeconds(seconds), cts.Token);
+                await Task.Delay(TimeSpan.FromSeconds(seconds), cts.Token).ConfigureAwait(false);
             }
             catch (TaskCanceledException ex)
             {
@@ -50,6 +51,8 @@ namespace Wpf_Async
             finally
             {
                 cts.Dispose();
+                using (cts) 
+                    ;
                 sources.Remove(cts);
             }
             return true;
@@ -61,7 +64,7 @@ namespace Wpf_Async
 
             tb.Text = "wait 2 seconds";
             tb.Foreground = Brushes.Orange;
-            if (!await Delay(2, 0, cts))
+            if (!await Action(2, 0, cts))
                 return;
             tb.Text = "Click Done after 2 second wait";
             tb.Foreground = Brushes.Green;
@@ -73,7 +76,7 @@ namespace Wpf_Async
 
             tb1.Text = "wait 10 seconds";
             tb1.Foreground = Brushes.Orange;
-            if (!await Delay(10, 1, cts))
+            if (!await Action(10, 1, cts))
                 return;
             tb1.Text = "Click1 Done after 10 second wait";
             tb1.Foreground = Brushes.Green;
@@ -85,7 +88,7 @@ namespace Wpf_Async
 
             tb2.Text = "wait 7 seconds";
             tb2.Foreground = Brushes.Orange;
-            if (!await Delay(7, 2, cts))
+            if (!await Action(7, 2, cts))
                 return;
             tb2.Text = "Click2 Done after 7 second wait";
             tb2.Foreground = Brushes.Green;
@@ -103,15 +106,17 @@ namespace Wpf_Async
         private void ParallelClick(object sender, RoutedEventArgs e)
         {
             Button[] btns = { b, b1, b2 };
+            Debug.WriteLine(Thread.CurrentThread.ManagedThreadId);
 
             Parallel.Invoke(() =>
             {
-                Button_Click(null, null);
-                Button_Click_1(null, null);
-                Button_Click_2(null, null);
+                Task.Run(() => Button_Click(null, null));
+                Task.Run(() => Button_Click_1(null, null));
+                Task.Run(() => Button_Click_2(null, null));
             });
 
         }
+
 
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
